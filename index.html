@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LevelUp Daily</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app__header">
+        <div>
+          <p class="eyebrow">RPG Activity Tracker</p>
+          <h1>LevelUp Daily</h1>
+          <p class="subtitle">
+            Grow your real-life habits while your character levels up.
+          </p>
+        </div>
+        <div class="level-card">
+          <p class="level-card__label">Level</p>
+          <p class="level-card__value" id="levelValue">1</p>
+          <p class="level-card__xp" id="xpValue">0 / 100 XP</p>
+        </div>
+      </header>
+
+      <main class="app__main">
+        <section class="panel">
+          <div class="panel__header">
+            <h2>Create your character</h2>
+            <p>Customize the hero that grows with you.</p>
+          </div>
+          <form class="panel__body" id="characterForm">
+            <label class="field">
+              <span>Character name</span>
+              <input type="text" id="characterName" placeholder="Nova" required />
+            </label>
+            <label class="field">
+              <span>Class</span>
+              <select id="characterClass">
+                <option>Scholar</option>
+                <option>Warrior</option>
+                <option>Ranger</option>
+                <option>Monk</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Accent color</span>
+              <input type="color" id="accentColor" value="#6c5ce7" />
+            </label>
+            <button class="button" type="submit">Save Character</button>
+          </form>
+          <div class="character-card" id="characterCard">
+            <div class="character-card__avatar" id="characterAvatar">N</div>
+            <div>
+              <p class="character-card__name" id="characterDisplayName">Nova</p>
+              <p class="character-card__class" id="characterDisplayClass">Scholar</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel__header">
+            <h2>Daily quests</h2>
+            <p>Complete tasks to earn XP and stats.</p>
+          </div>
+          <form class="panel__body task-form" id="taskForm">
+            <label class="field">
+              <span>Quest</span>
+              <input type="text" id="taskName" placeholder="Study for 30 minutes" required />
+            </label>
+            <label class="field">
+              <span>Category</span>
+              <select id="taskCategory">
+                <option value="study">Study</option>
+                <option value="train">Train</option>
+                <option value="workout">Workout</option>
+                <option value="read">Read</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>XP</span>
+              <input type="number" id="taskXp" value="20" min="5" max="100" step="5" />
+            </label>
+            <button class="button button--ghost" type="submit">Add Quest</button>
+          </form>
+          <ul class="task-list" id="taskList"></ul>
+        </section>
+
+        <section class="panel">
+          <div class="panel__header">
+            <h2>Growth stats</h2>
+            <p>Every quest boosts a stat and your streak.</p>
+          </div>
+          <div class="panel__body stats">
+            <div class="stat">
+              <p class="stat__label">Mind</p>
+              <p class="stat__value" id="statMind">0</p>
+            </div>
+            <div class="stat">
+              <p class="stat__label">Strength</p>
+              <p class="stat__value" id="statStrength">0</p>
+            </div>
+            <div class="stat">
+              <p class="stat__label">Discipline</p>
+              <p class="stat__value" id="statDiscipline">0</p>
+            </div>
+            <div class="stat">
+              <p class="stat__label">Clarity</p>
+              <p class="stat__value" id="statClarity">0</p>
+            </div>
+            <div class="stat stat--wide">
+              <p class="stat__label">Daily streak</p>
+              <p class="stat__value" id="statStreak">0 days</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app__footer">
+        <p>
+          Tip: Mark quests complete every day to keep your streak and level up.
+        </p>
+        <button class="button button--text" id="resetButton">Reset Daily Tasks</button>
+      </footer>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
