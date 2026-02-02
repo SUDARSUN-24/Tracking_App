@@ -19,6 +19,10 @@ const state = {
     name: "Nova",
     className: "Scholar",
     accent: "#6c5ce7",
+    skinTone: "#f2c5a0",
+    hairColor: "#1f2937",
+    hairStyle: "short",
+    outfitColor: "#4338ca",
   },
   stats: {
     mind: 0,
@@ -37,6 +41,10 @@ const elements = {
   characterName: document.getElementById("characterName"),
   characterClass: document.getElementById("characterClass"),
   accentColor: document.getElementById("accentColor"),
+  skinTone: document.getElementById("skinTone"),
+  hairColor: document.getElementById("hairColor"),
+  hairStyle: document.getElementById("hairStyle"),
+  outfitColor: document.getElementById("outfitColor"),
   characterAvatar: document.getElementById("characterAvatar"),
   characterDisplayName: document.getElementById("characterDisplayName"),
   characterDisplayClass: document.getElementById("characterDisplayClass"),
@@ -53,6 +61,11 @@ const elements = {
   levelValue: document.getElementById("levelValue"),
   xpValue: document.getElementById("xpValue"),
   resetButton: document.getElementById("resetButton"),
+  avatarSkin: document.querySelectorAll(".avatar__skin, .avatar__arm"),
+  avatarBody: document.querySelector(".avatar__body"),
+  avatarShade: document.querySelector(".avatar__shade"),
+  avatarHair: document.querySelectorAll(".avatar__hair"),
+  avatarBun: document.querySelector(".avatar__bun"),
 };
 
 const loadState = () => {
@@ -77,6 +90,27 @@ const updateCharacterCard = () => {
   elements.characterAvatar.textContent = name.charAt(0).toUpperCase();
   elements.characterAvatar.style.background = accent;
   document.documentElement.style.setProperty("--accent", accent);
+};
+
+const updateAvatar = () => {
+  const { skinTone, hairColor, hairStyle, outfitColor } = state.character;
+  elements.avatarSkin.forEach((element) => {
+    element.style.fill = skinTone;
+  });
+  elements.avatarHair.forEach((element) => {
+    element.style.fill = hairColor;
+    element.classList.toggle("is-active", element.classList.contains(`avatar__hair--${hairStyle}`));
+  });
+  if (elements.avatarBun) {
+    elements.avatarBun.style.fill = hairColor;
+    elements.avatarBun.classList.toggle("is-active", hairStyle === "bun");
+  }
+  if (elements.avatarBody) {
+    elements.avatarBody.style.fill = outfitColor;
+  }
+  if (elements.avatarShade) {
+    elements.avatarShade.style.fill = outfitColor;
+  }
 };
 
 const updateStats = () => {
@@ -174,8 +208,13 @@ const updateCharacter = (event) => {
   state.character.name = elements.characterName.value.trim() || "Nova";
   state.character.className = elements.characterClass.value;
   state.character.accent = elements.accentColor.value;
+  state.character.skinTone = elements.skinTone.value;
+  state.character.hairColor = elements.hairColor.value;
+  state.character.hairStyle = elements.hairStyle.value;
+  state.character.outfitColor = elements.outfitColor.value;
   saveState();
   updateCharacterCard();
+  updateAvatar();
 };
 
 const init = () => {
@@ -183,7 +222,12 @@ const init = () => {
   elements.characterName.value = state.character.name;
   elements.characterClass.value = state.character.className;
   elements.accentColor.value = state.character.accent;
+  elements.skinTone.value = state.character.skinTone;
+  elements.hairColor.value = state.character.hairColor;
+  elements.hairStyle.value = state.character.hairStyle;
+  elements.outfitColor.value = state.character.outfitColor;
   updateCharacterCard();
+  updateAvatar();
   updateStats();
   renderTasks();
 };

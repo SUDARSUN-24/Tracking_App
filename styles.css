@@ -130,6 +130,81 @@ h1 {
   font-size: 0.95rem;
 }
 
+.avatar-builder {
+  display: grid;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.avatar-preview {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  background: #0f172a;
+  border-radius: 18px;
+  padding: 16px;
+  color: #e2e8f0;
+}
+
+.avatar-preview svg {
+  width: 140px;
+  height: auto;
+}
+
+.avatar-preview__label {
+  font-size: 0.85rem;
+  color: #cbd5f5;
+}
+
+.avatar-controls {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.avatar__skin,
+.avatar__arm {
+  fill: #f2c5a0;
+}
+
+.avatar__hair,
+.avatar__bun {
+  fill: #1f2937;
+}
+
+.avatar__hair,
+.avatar__bun {
+  display: none;
+}
+
+.avatar__hair.is-active,
+.avatar__bun.is-active {
+  display: block;
+}
+
+.avatar__body {
+  fill: #4338ca;
+}
+
+.avatar__shade {
+  fill: url(#shirtShade);
+  opacity: 0.35;
+}
+
+.avatar__eye {
+  fill: #0f172a;
+}
+
+.avatar__smile {
+  stroke: #0f172a;
+  stroke-width: 4;
+  stroke-linecap: round;
+  fill: none;
+}
+
 .button {
   background: #6c5ce7;
   color: #fff;

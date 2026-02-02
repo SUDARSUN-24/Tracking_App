@@ -47,6 +47,62 @@
               <span>Accent color</span>
               <input type="color" id="accentColor" value="#6c5ce7" />
             </label>
+            <div class="avatar-builder">
+              <div class="avatar-preview">
+                <svg viewBox="0 0 160 200" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="shirtShade" x1="0" x2="1">
+                      <stop offset="0%" stop-color="#4338ca" />
+                      <stop offset="100%" stop-color="#2563eb" />
+                    </linearGradient>
+                  </defs>
+                  <rect x="30" y="78" width="100" height="98" rx="24" class="avatar__body" />
+                  <rect x="30" y="78" width="100" height="98" rx="24" class="avatar__shade" />
+                  <circle cx="80" cy="58" r="32" class="avatar__skin" />
+                  <path
+                    class="avatar__hair avatar__hair--short"
+                    d="M48 56c3-18 16-28 32-28s28 10 32 28v6c-9-6-20-9-32-9s-23 3-32 9z"
+                  />
+                  <path
+                    class="avatar__hair avatar__hair--long"
+                    d="M44 70c0-26 16-40 36-40s36 14 36 40c0 18-6 34-12 50h-9c2-12 3-24-2-36-9-5-18-7-27-7s-18 2-27 7c-5 12-4 24-2 36h-9c-6-16-12-32-12-50z"
+                  />
+                  <path
+                    class="avatar__hair avatar__hair--bun"
+                    d="M52 58c3-20 16-30 28-30s25 10 28 30v8c-8-6-17-9-28-9s-20 3-28 9z"
+                  />
+                  <circle cx="110" cy="28" r="12" class="avatar__bun" />
+                  <circle cx="68" cy="58" r="4" class="avatar__eye" />
+                  <circle cx="92" cy="58" r="4" class="avatar__eye" />
+                  <path d="M70 72c6 6 14 6 20 0" class="avatar__smile" />
+                  <rect x="22" y="100" width="24" height="60" rx="12" class="avatar__arm" />
+                  <rect x="114" y="100" width="24" height="60" rx="12" class="avatar__arm" />
+                </svg>
+                <p class="avatar-preview__label">Your hero</p>
+              </div>
+              <div class="avatar-controls">
+                <label class="field">
+                  <span>Skin tone</span>
+                  <input type="color" id="skinTone" value="#f2c5a0" />
+                </label>
+                <label class="field">
+                  <span>Hair color</span>
+                  <input type="color" id="hairColor" value="#1f2937" />
+                </label>
+                <label class="field">
+                  <span>Hair style</span>
+                  <select id="hairStyle">
+                    <option value="short">Short</option>
+                    <option value="long">Long</option>
+                    <option value="bun">Bun</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>Outfit color</span>
+                  <input type="color" id="outfitColor" value="#4338ca" />
+                </label>
+              </div>
+            </div>
             <button class="button" type="submit">Save Character</button>
           </form>
           <div class="character-card" id="characterCard">
