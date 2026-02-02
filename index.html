@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LevelUp Daily</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app__header">
+        <div>
+          <p class="eyebrow">RPG Activity Tracker</p>
+          <h1>LevelUp Daily</h1>
+          <p class="subtitle">
+            Grow your real-life habits while your character levels up.
+          </p>
+        </div>
+        <div class="level-card">
+          <p class="level-card__label">Level</p>
+          <p class="level-card__value" id="levelValue">1</p>
+          <p class="level-card__xp" id="xpValue">0 / 100 XP</p>
+        </div>
+      </header>
+
+      <main class="app__main">
+        <section class="panel">
+          <div class="panel__header">
+            <h2>Create your character</h2>
+            <p>Customize the hero that grows with you.</p>
+          </div>
+          <form class="panel__body" id="characterForm">
+            <label class="field">
+              <span>Character name</span>
+              <input type="text" id="characterName" placeholder="Nova" required />
+            </label>
+            <label class="field">
+              <span>Class</span>
+              <select id="characterClass">
+                <option>Scholar</option>
+                <option>Warrior</option>
+                <option>Ranger</option>
+                <option>Monk</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Accent color</span>
+              <input type="color" id="accentColor" value="#6c5ce7" />
+            </label>
+            <div class="avatar-builder">
+              <div class="avatar-preview">
+                <svg viewBox="0 0 160 200" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="shirtShade" x1="0" x2="1">
+                      <stop offset="0%" stop-color="#4338ca" />
+                      <stop offset="100%" stop-color="#2563eb" />
+                    </linearGradient>
+                  </defs>
+                  <rect x="30" y="78" width="100" height="98" rx="24" class="avatar__body" />
+                  <rect x="30" y="78" width="100" height="98" rx="24" class="avatar__shade" />
+                  <circle cx="80" cy="58" r="32" class="avatar__skin" />
+                  <path
+                    class="avatar__hair avatar__hair--short"
+                    d="M48 56c3-18 16-28 32-28s28 10 32 28v6c-9-6-20-9-32-9s-23 3-32 9z"
+                  />
+                  <path
+                    class="avatar__hair avatar__hair--long"
+                    d="M44 70c0-26 16-40 36-40s36 14 36 40c0 18-6 34-12 50h-9c2-12 3-24-2-36-9-5-18-7-27-7s-18 2-27 7c-5 12-4 24-2 36h-9c-6-16-12-32-12-50z"
+                  />
+                  <path
+                    class="avatar__hair avatar__hair--bun"
+                    d="M52 58c3-20 16-30 28-30s25 10 28 30v8c-8-6-17-9-28-9s-20 3-28 9z"
+                  />
+                  <circle cx="110" cy="28" r="12" class="avatar__bun" />
+                  <circle cx="68" cy="58" r="4" class="avatar__eye" />
+                  <circle cx="92" cy="58" r="4" class="avatar__eye" />
+                  <path d="M70 72c6 6 14 6 20 0" class="avatar__smile" />
+                  <rect x="22" y="100" width="24" height="60" rx="12" class="avatar__arm" />
+                  <rect x="114" y="100" width="24" height="60" rx="12" class="avatar__arm" />
+                </svg>
+                <p class="avatar-preview__label">Your hero</p>
+              </div>
+              <div class="avatar-controls">
+                <label class="field">
+                  <span>Skin tone</span>
+                  <input type="color" id="skinTone" value="#f2c5a0" />
+                </label>
+                <label class="field">
+                  <span>Hair color</span>
+                  <input type="color" id="hairColor" value="#1f2937" />
+                </label>
+                <label class="field">
+                  <span>Hair style</span>
+                  <select id="hairStyle">
+                    <option value="short">Short</option>
+                    <option value="long">Long</option>
+                    <option value="bun">Bun</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>Outfit color</span>
+                  <input type="color" id="outfitColor" value="#4338ca" />
+                </label>
+              </div>
+            </div>
+            <button class="button" type="submit">Save Character</button>
+          </form>
+          <div class="character-card" id="characterCard">
+            <div class="character-card__avatar" id="characterAvatar">N</div>
+            <div>
+              <p class="character-card__name" id="characterDisplayName">Nova</p>
+              <p class="character-card__class" id="characterDisplayClass">Scholar</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel__header">
+            <h2>Daily quests</h2>
+            <p>Complete tasks to earn XP and stats.</p>
+          </div>
+          <form class="panel__body task-form" id="taskForm">
+            <label class="field">
+              <span>Quest</span>
+              <input type="text" id="taskName" placeholder="Study for 30 minutes" required />
+            </label>
+            <label class="field">
+              <span>Category</span>
+              <select id="taskCategory">
+                <option value="study">Study</option>
+                <option value="train">Train</option>
+                <option value="workout">Workout</option>
+                <option value="read">Read</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>XP</span>
+              <input type="number" id="taskXp" value="20" min="5" max="100" step="5" />
+            </label>
+            <button class="button button--ghost" type="submit">Add Quest</button>
+          </form>
+          <ul class="task-list" id="taskList"></ul>
+        </section>
+
+        <section class="panel">
+          <div class="panel__header">
+            <h2>Growth stats</h2>
+            <p>Every quest boosts a stat and your streak.</p>
+          </div>
+          <div class="panel__body stats">
+            <div class="stat">
+              <p class="stat__label">Mind</p>
+              <p class="stat__value" id="statMind">0</p>
+            </div>
+            <div class="stat">
+              <p class="stat__label">Strength</p>
+              <p class="stat__value" id="statStrength">0</p>
+            </div>
+            <div class="stat">
+              <p class="stat__label">Discipline</p>
+              <p class="stat__value" id="statDiscipline">0</p>
+            </div>
+            <div class="stat">
+              <p class="stat__label">Clarity</p>
+              <p class="stat__value" id="statClarity">0</p>
+            </div>
+            <div class="stat stat--wide">
+              <p class="stat__label">Daily streak</p>
+              <p class="stat__value" id="statStreak">0 days</p>
+            </div>
+          </div>
+          <div class="panel__body hero-panel">
+            <div class="hero-panel__preview">
+              <svg viewBox="0 0 200 240" aria-hidden="true">
+                <defs>
+                  <linearGradient id="heroGlow" x1="0" x2="1">
+                    <stop offset="0%" stop-color="#22d3ee" />
+                    <stop offset="100%" stop-color="#a855f7" />
+                  </linearGradient>
+                </defs>
+                <circle cx="100" cy="86" r="40" class="hero__skin" />
+                <path
+                  class="hero__hair hero__hair--short"
+                  d="M56 86c4-22 20-34 44-34s40 12 44 34v8c-12-8-26-12-44-12s-32 4-44 12z"
+                />
+                <path
+                  class="hero__hair hero__hair--long"
+                  d="M48 102c0-30 20-48 52-48s52 18 52 48c0 22-8 42-16 60h-14c4-14 6-28 0-42-12-8-26-12-40-12s-28 4-40 12c-6 14-4 28 0 42h-14c-8-18-16-38-16-60z"
+                />
+                <path
+                  class="hero__hair hero__hair--bun"
+                  d="M60 88c4-22 18-34 40-34s36 12 40 34v10c-12-8-24-12-40-12s-28 4-40 12z"
+                />
+                <circle cx="140" cy="50" r="14" class="hero__bun" />
+                <rect x="52" y="124" width="96" height="94" rx="28" class="hero__body" />
+                <rect x="52" y="124" width="96" height="94" rx="28" class="hero__glow" />
+                <rect x="26" y="138" width="28" height="70" rx="14" class="hero__arm" />
+                <rect x="146" y="138" width="28" height="70" rx="14" class="hero__arm" />
+                <circle cx="82" cy="88" r="5" class="hero__eye" />
+                <circle cx="118" cy="88" r="5" class="hero__eye" />
+                <path d="M86 106c6 6 18 6 24 0" class="hero__smile" />
+                <circle cx="30" cy="50" r="18" class="hero__orb" />
+                <circle cx="170" cy="60" r="14" class="hero__orb hero__orb--small" />
+              </svg>
+              <p class="hero-panel__caption">Your hero evolves as stats grow.</p>
+            </div>
+            <div class="hero-panel__stats">
+              <div class="hero-stat">
+                <div class="hero-stat__row">
+                  <span>Mind</span>
+                  <span id="heroMindValue">0</span>
+                </div>
+                <div class="hero-stat__bar">
+                  <span id="heroMindBar"></span>
+                </div>
+              </div>
+              <div class="hero-stat">
+                <div class="hero-stat__row">
+                  <span>Strength</span>
+                  <span id="heroStrengthValue">0</span>
+                </div>
+                <div class="hero-stat__bar">
+                  <span id="heroStrengthBar"></span>
+                </div>
+              </div>
+              <div class="hero-stat">
+                <div class="hero-stat__row">
+                  <span>Discipline</span>
+                  <span id="heroDisciplineValue">0</span>
+                </div>
+                <div class="hero-stat__bar">
+                  <span id="heroDisciplineBar"></span>
+                </div>
+              </div>
+              <div class="hero-stat">
+                <div class="hero-stat__row">
+                  <span>Clarity</span>
+                  <span id="heroClarityValue">0</span>
+                </div>
+                <div class="hero-stat__bar">
+                  <span id="heroClarityBar"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app__footer">
+        <p>
+          Tip: Mark quests complete every day to keep your streak and level up.
+        </p>
+        <button class="button button--text" id="resetButton">Reset Daily Tasks</button>
+      </footer>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
