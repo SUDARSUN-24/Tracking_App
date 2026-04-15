@@ -351,12 +351,36 @@ h1 {
 .character-card__avatar {
   width: 56px;
   height: 56px;
-  border-radius: 50%;
+  border-radius: 14px;
   display: grid;
   place-items: center;
-  font-size: 1.4rem;
-  font-weight: 700;
-  background: #6c5ce7;
+  background: #1e293b;
+  overflow: hidden;
+}
+
+.character-card__avatar svg {
+  width: 52px;
+  height: 52px;
+}
+
+.card-hero__skin,
+.card-hero__arm {
+  fill: #f2c5a0;
+}
+
+.card-hero__hair,
+.card-hero__bun {
+  fill: #1f2937;
+  display: none;
+}
+
+.card-hero__hair.is-active,
+.card-hero__bun.is-active {
+  display: block;
+}
+
+.card-hero__body {
+  fill: #4338ca;
 }
 
 .character-card__name {

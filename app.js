@@ -13,26 +13,29 @@ const CATEGORY_STAT = {
 };
 
 const STORAGE_KEY = "levelup-daily";
+const DEFAULT_CHARACTER = {
+  name: "Nova",
+  className: "Scholar",
+  accent: "#6c5ce7",
+  skinTone: "#f2c5a0",
+  hairColor: "#1f2937",
+  hairStyle: "short",
+  outfitColor: "#4338ca",
+};
+
+const DEFAULT_STATS = {
+  mind: 0,
+  strength: 0,
+  discipline: 0,
+  clarity: 0,
+  streak: 0,
+  xp: 0,
+  level: 1,
+};
 
 const state = {
-  character: {
-    name: "Nova",
-    className: "Scholar",
-    accent: "#6c5ce7",
-    skinTone: "#f2c5a0",
-    hairColor: "#1f2937",
-    hairStyle: "short",
-    outfitColor: "#4338ca",
-  },
-  stats: {
-    mind: 0,
-    strength: 0,
-    discipline: 0,
-    clarity: 0,
-    streak: 0,
-    xp: 0,
-    level: 1,
-  },
+  character: { ...DEFAULT_CHARACTER },
+  stats: { ...DEFAULT_STATS },
   tasks: [...DEFAULT_TASKS],
 };
 
@@ -45,7 +48,6 @@ const elements = {
   hairColor: document.getElementById("hairColor"),
   hairStyle: document.getElementById("hairStyle"),
   outfitColor: document.getElementById("outfitColor"),
-  characterAvatar: document.getElementById("characterAvatar"),
   characterDisplayName: document.getElementById("characterDisplayName"),
   characterDisplayClass: document.getElementById("characterDisplayClass"),
   taskForm: document.getElementById("taskForm"),
@@ -79,6 +81,10 @@ const elements = {
   heroStrengthBar: document.getElementById("heroStrengthBar"),
   heroDisciplineBar: document.getElementById("heroDisciplineBar"),
   heroClarityBar: document.getElementById("heroClarityBar"),
+  cardHeroSkin: document.querySelectorAll(".card-hero__skin, .card-hero__arm"),
+  cardHeroBody: document.querySelector(".card-hero__body"),
+  cardHeroHair: document.querySelectorAll(".card-hero__hair"),
+  cardHeroBun: document.querySelector(".card-hero__bun"),
 };
 
 const loadState = () => {
@@ -86,9 +92,18 @@ const loadState = () => {
   if (!stored) {
     return;
   }
-  const parsed = JSON.parse(stored);
-  if (parsed) {
-    Object.assign(state, parsed);
+  try {
+    const parsed = JSON.parse(stored);
+    if (!parsed || typeof parsed !== "object") {
+      return;
+    }
+    state.character = { ...DEFAULT_CHARACTER, ...(parsed.character || {}) };
+    state.stats = { ...DEFAULT_STATS, ...(parsed.stats || {}) };
+    if (Array.isArray(parsed.tasks) && parsed.tasks.length > 0) {
+      state.tasks = parsed.tasks;
+    }
+  } catch (error) {
+    localStorage.removeItem(STORAGE_KEY);
   }
 };
 
@@ -97,12 +112,9 @@ const saveState = () => {
 };
 
 const updateCharacterCard = () => {
-  const { name, className, accent } = state.character;
+  const { name, className } = state.character;
   elements.characterDisplayName.textContent = name;
   elements.characterDisplayClass.textContent = className;
-  elements.characterAvatar.textContent = name.charAt(0).toUpperCase();
-  elements.characterAvatar.style.background = accent;
-  document.documentElement.style.setProperty("--accent", accent);
 };
 
 const updateAvatar = () => {
@@ -170,6 +182,34 @@ const updateHero = () => {
   document.querySelectorAll(".hero__orb").forEach((orb) => {
     orb.style.opacity = orbOpacity.toString();
   });
+};
+
+const updateCardHero = () => {
+  const { skinTone, hairColor, hairStyle, outfitColor } = state.character;
+  elements.cardHeroSkin.forEach((element) => {
+    element.style.fill = skinTone;
+  });
+  elements.cardHeroHair.forEach((element) => {
+    element.style.fill = hairColor;
+    element.classList.toggle("is-active", element.classList.contains(`card-hero__hair--${hairStyle}`));
+  });
+  if (elements.cardHeroBun) {
+    elements.cardHeroBun.style.fill = hairColor;
+    elements.cardHeroBun.classList.toggle("is-active", hairStyle === "bun");
+  }
+  if (elements.cardHeroBody) {
+    elements.cardHeroBody.style.fill = outfitColor;
+  }
+};
+
+const syncCharacterFromInputs = () => {
+  state.character.name = elements.characterName.value.trim() || "Nova";
+  state.character.className = elements.characterClass.value;
+  state.character.accent = elements.accentColor.value;
+  state.character.skinTone = elements.skinTone.value;
+  state.character.hairColor = elements.hairColor.value;
+  state.character.hairStyle = elements.hairStyle.value;
+  state.character.outfitColor = elements.outfitColor.value;
 };
 
 const updateStats = () => {
@@ -265,17 +305,12 @@ const addTask = (event) => {
 
 const updateCharacter = (event) => {
   event.preventDefault();
-  state.character.name = elements.characterName.value.trim() || "Nova";
-  state.character.className = elements.characterClass.value;
-  state.character.accent = elements.accentColor.value;
-  state.character.skinTone = elements.skinTone.value;
-  state.character.hairColor = elements.hairColor.value;
-  state.character.hairStyle = elements.hairStyle.value;
-  state.character.outfitColor = elements.outfitColor.value;
+  syncCharacterFromInputs();
   saveState();
   updateCharacterCard();
   updateAvatar();
   updateHero();
+  updateCardHero();
 };
 
 const init = () => {
@@ -290,6 +325,7 @@ const init = () => {
   updateCharacterCard();
   updateAvatar();
   updateHero();
+  updateCardHero();
   updateStats();
   renderTasks();
 };
@@ -297,5 +333,22 @@ const init = () => {
 elements.characterForm.addEventListener("submit", updateCharacter);
 elements.taskForm.addEventListener("submit", addTask);
 elements.resetButton.addEventListener("click", resetDailyTasks);
+[
+  elements.characterName,
+  elements.characterClass,
+  elements.accentColor,
+  elements.skinTone,
+  elements.hairColor,
+  elements.hairStyle,
+  elements.outfitColor,
+].forEach((input) => {
+  input.addEventListener("input", () => {
+    syncCharacterFromInputs();
+    updateCharacterCard();
+    updateAvatar();
+    updateHero();
+    updateCardHero();
+  });
+});
 
 init();

@@ -106,7 +106,27 @@
             <button class="button" type="submit">Save Character</button>
           </form>
           <div class="character-card" id="characterCard">
-            <div class="character-card__avatar" id="characterAvatar">N</div>
+            <div class="character-card__avatar" id="characterAvatar">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <circle cx="60" cy="34" r="22" class="card-hero__skin" />
+                <path
+                  class="card-hero__hair card-hero__hair--short"
+                  d="M36 34c2-12 10-18 24-18s22 6 24 18v6c-6-4-14-6-24-6s-18 2-24 6z"
+                />
+                <path
+                  class="card-hero__hair card-hero__hair--long"
+                  d="M32 44c0-18 12-28 28-28s28 10 28 28c0 14-4 26-10 38h-8c2-10 4-18 0-26-8-6-14-8-22-8s-14 2-22 8c-4 8-2 16 0 26h-8c-6-12-10-24-10-38z"
+                />
+                <path
+                  class="card-hero__hair card-hero__hair--bun"
+                  d="M36 34c2-12 10-18 24-18s22 6 24 18v6c-6-4-14-6-24-6s-18 2-24 6z"
+                />
+                <circle cx="84" cy="12" r="8" class="card-hero__bun" />
+                <rect x="34" y="56" width="52" height="50" rx="16" class="card-hero__body" />
+                <rect x="20" y="62" width="14" height="38" rx="7" class="card-hero__arm" />
+                <rect x="86" y="62" width="14" height="38" rx="7" class="card-hero__arm" />
+              </svg>
+            </div>
             <div>
               <p class="character-card__name" id="characterDisplayName">Nova</p>
               <p class="character-card__class" id="characterDisplayClass">Scholar</p>
